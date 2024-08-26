@@ -33,7 +33,7 @@ function App() {
             />
           </Col>
           <Col md={6}>
-            <SettlementSummary expenses={expenses} participants={participants} />
+            <SettlementSummary expenses={expenses} setExpenses={setExpenses} participants={participants} />
           </Col>
         </Row>
       </Container>

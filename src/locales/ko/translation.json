@@ -13,9 +13,14 @@
     "expenseForm.paidByPlaceholder": "참가자를 선택하거나 추가하세요",
     "expenseForm.addExpense": "비용 추가",
 
-    "expenseList.payer": "지불자",     
-    "expenseList.amount": "금액",       
-    "expenseList.description": "설명",  
+    "expenseList.payer": "지불자",
+    "expenseList.amount": "금액",
+    "expenseList.description": "설명",
+    "expenseList.actions": "작업",
+    "expenseList.edit": "수정",
+    "expenseList.save": "저장",
+    "expenseList.cancel": "취소",
+    "expenseList.delete": "삭제",
   
     "settlementSummary.header": "정산 요약",               
     "settlementSummary.totalSpent": "총 지출 금액",        

@@ -67,7 +67,7 @@ function formatCurrency(amount, currency) {
   return amount.toLocaleString(undefined, options);  // Amount is expected to be a number
 }
 
-function SettlementSummary({ expenses, participants }) {
+function SettlementSummary({ expenses, setExpenses, participants }) {
   const { t, i18n } = useTranslation();
 
   // Automatically set currency based on the language
@@ -101,11 +101,12 @@ function SettlementSummary({ expenses, participants }) {
         
         {/* Include the Expense List */}
         <h5 className="mt-4">💰 {t('settlementSummary.detailedExpenses')}</h5>
-        <ExpenseList expenses={expenses.map(expense => ({
-          ...expense,
-          amount: formatCurrency(expense.amount, currency),  // Format amount here for display
-        }))} />      
-
+        <ExpenseList 
+          expenses={expenses.map(expense => ({
+            ...expense,
+            amount: formatCurrency(expense.amount, currency),  // Format amount here for display
+          }))}
+          setExpenses={setExpenses} />      
       </Card.Body>
     </Card>
   );

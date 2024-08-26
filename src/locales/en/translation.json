@@ -16,6 +16,12 @@
     "expenseList.payer": "Payer",
     "expenseList.amount": "Amount",
     "expenseList.description": "Description",
+    "expenseList.actions": "Actions",
+    "expenseList.edit": "Edit",
+    "expenseList.save": "Save",
+    "expenseList.cancel": "Cancel",
+    "expenseList.delete": "Delete",
+    
 
     "settlementSummary.header": "Settlement Summary",
     "settlementSummary.totalSpent": "Total Amount Spent",
