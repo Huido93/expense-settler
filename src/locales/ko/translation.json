@@ -1,0 +1,31 @@
+{
+    "navbar.brand": "비용 정산기",
+    "navbar.home": "홈",
+    "navbar.about": "소개",
+    "navbar.contact": "연락처",
+    
+    "expenseForm.header": "비용 입력",
+    "expenseForm.description": "설명",
+    "expenseForm.descriptionPlaceholder": "설명을 입력하세요",
+    "expenseForm.amount": "금액",
+    "expenseForm.amountPlaceholder": "금액을 입력하세요",
+    "expenseForm.paidBy": "지불자",
+    "expenseForm.paidByPlaceholder": "참가자를 선택하거나 추가하세요",
+    "expenseForm.addExpense": "비용 추가",
+
+    "expenseList.payer": "지불자",     
+    "expenseList.amount": "금액",       
+    "expenseList.description": "설명",  
+  
+    "settlementSummary.header": "정산 요약",               
+    "settlementSummary.totalSpent": "총 지출 금액",        
+    "settlementSummary.amountPerPerson": "1인당 금액",     
+    "settlementSummary.numParticipants": "참가자 수",      
+    "settlementSummary.transactions": "거래 내역",         
+    "settlementSummary.detailedExpenses": "상세 지출 내역",
+    "settlementSummary.noTransactionNeeded": "정산이 필요하지 않습니다",
+
+    "welcome": "비용 정산기에 오신 것을 환영합니다"
+  }
+  
+  

@@ -1,0 +1,30 @@
+{
+    "navbar.brand": "Expense Settler",
+    "navbar.home": "Home",
+    "navbar.about": "About",
+    "navbar.contact": "Contact",
+    
+    "expenseForm.header": "Input Expense",
+    "expenseForm.description": "Description",
+    "expenseForm.descriptionPlaceholder": "Enter description",
+    "expenseForm.amount": "Amount",
+    "expenseForm.amountPlaceholder": "Enter amount",
+    "expenseForm.paidBy": "Paid By",
+    "expenseForm.paidByPlaceholder": "Select or add a participant",
+    "expenseForm.addExpense": "Add Expense",
+
+    "expenseList.payer": "Payer",
+    "expenseList.amount": "Amount",
+    "expenseList.description": "Description",
+
+    "settlementSummary.header": "Settlement Summary",
+    "settlementSummary.totalSpent": "Total Amount Spent",
+    "settlementSummary.amountPerPerson": "Amount Per Person",
+    "settlementSummary.numParticipants": "Number of Participants",
+    "settlementSummary.transactions": "Transactions",
+    "settlementSummary.detailedExpenses": "Detailed Expense List",
+    "settlementSummary.noTransactionNeeded": "No Transactions needed for Settlement",
+  
+    "welcome": "Welcome to Expense Settler"
+  }
+  
