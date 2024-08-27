@@ -29,6 +29,11 @@
     "settlementSummary.transactions": "거래 내역",         
     "settlementSummary.detailedExpenses": "상세 지출 내역",
     "settlementSummary.noTransactionNeeded": "정산이 필요하지 않습니다",
+    "settlementSummary.owes": "에게 빚진 금액",
+    "settlementSummary.for": "을 위한",
+    "settlementSummary.shareSummary": "정산 내역 공유",
+
+    "shareButton.kakaotalk": "카카오톡으로 공유하기",
 
     "welcome": "비용 정산기에 오신 것을 환영합니다"
   }

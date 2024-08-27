@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
@@ -8,6 +8,14 @@ import ExpenseForm from './components/ExpenseForm';
 import SettlementSummary from './components/SettlementSummary';
 
 function App() {
+
+  useEffect(() => {
+    // Initialize Kakao SDK
+    if (window.Kakao && !window.Kakao.isInitialized()) {
+      window.Kakao.init('877b5258147310dfd661a9ebea2e615f'); // Replace with your actual JavaScript Key
+    }
+  }, []);
+
   const { i18n } = useTranslation();  
   const [expenses, setExpenses] = useState([]);
   const [participants, setParticipants] = useState([]);

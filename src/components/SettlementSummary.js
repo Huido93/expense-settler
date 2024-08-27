@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './../App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import ExpenseList from './ExpenseList';
 import TransactionsList from './TransactionsList';  // Import the new TransactionsList component
+import ShareButton from './ShareButton'
 
 function calculateSettlement(expenses, participants) {
   const totalExpenses = expenses.reduce((sum, expense) => sum + parseFloat(expense.amount), 0);
@@ -77,6 +78,16 @@ function SettlementSummary({ expenses, setExpenses, participants, removeExpense 
 
   const { totalExpenses, perPerson, transactions } = calculateSettlement(expenses, participants);
 
+  // Create the summary text with translations and formatted currency
+  const summaryText = `
+    ${t('settlementSummary.totalSpent')}: ${formatCurrency(expenses.reduce((sum, exp) => sum + exp.amount, 0), currency)}
+    ${t('settlementSummary.participants')}: ${participants.length}
+    ${t('settlementSummary.details')}:
+    ${expenses.map(exp => `${exp.paidBy}: ${formatCurrency(exp.amount, currency)} ${t('settlementSummary.for')} ${exp.description}`).join('\n')}
+    ${t('settlementSummary.transactions')}:
+    ${transactions.map(tx => `${tx.from} ${t('settlementSummary.owes')} ${tx.to} ${formatCurrency(tx.amount, currency)}`).join('\n')}
+  `;
+
   return (
     <Card className="mb-3 shadow-sm">
       <Card.Header className='settlement-header'>
@@ -107,6 +118,10 @@ function SettlementSummary({ expenses, setExpenses, participants, removeExpense 
           removeExpense={removeExpense}
           formatCurrency={formatCurrency} />      
       </Card.Body>
+
+      {/* <h6>Share the Summary:</h6> */}
+      <ShareButton summaryText={summaryText} />
+
     </Card>
   );
 }

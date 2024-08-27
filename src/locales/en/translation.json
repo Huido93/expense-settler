@@ -30,6 +30,11 @@
     "settlementSummary.transactions": "Transactions",
     "settlementSummary.detailedExpenses": "Detailed Expense List",
     "settlementSummary.noTransactionNeeded": "No Transactions needed for Settlement",
+    "settlementSummary.owes": "owes",
+    "settlementSummary.for": "for",
+    "settlementSummary.shareSummary": "Share the Summary",
+
+    "shareButton.kakaotalk": "Share Summary on Kakaotalk",
   
     "welcome": "Welcome to Expense Settler"
   }
