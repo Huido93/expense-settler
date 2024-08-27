@@ -5,23 +5,23 @@ import { Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import ExpenseList from './ExpenseList';
 import TransactionsList from './TransactionsList';  // Import the new TransactionsList component
-import ShareButton from './ShareButton'
+import ShareButton from './ShareButton';
 
 function calculateSettlement(expenses, participants) {
   const totalExpenses = expenses.reduce((sum, expense) => sum + parseFloat(expense.amount), 0);
-  const perPerson = totalExpenses / participants.length;
-
   const balances = participants.reduce((acc, participant) => {
     acc[participant] = 0;
     return acc;
   }, {});
 
   expenses.forEach((expense) => {
-    balances[expense.paidBy] += expense.amount;
-  });
+    const splitAmount = expense.amount / expense.beneficiaries.length; // Divide amount among beneficiaries
 
-  participants.forEach((participant) => {
-    balances[participant] -= perPerson;
+    expense.beneficiaries.forEach(beneficiary => {
+      balances[beneficiary] -= splitAmount; // Subtract split amount from each beneficiary
+    });
+
+    balances[expense.paidBy] += expense.amount; // Add the full amount to the payer's balance
   });
 
   const transactions = [];
@@ -55,7 +55,7 @@ function calculateSettlement(expenses, participants) {
     if (debtor.amount === 0) debtors.splice(0, 1);
   }
 
-  return { totalExpenses, perPerson, transactions };
+  return { totalExpenses, transactions };
 }
 
 function formatCurrency(amount, currency) {
@@ -76,11 +76,11 @@ function SettlementSummary({ expenses, setExpenses, participants, removeExpense 
 
   if (participants.length === 0) return null;
 
-  const { totalExpenses, perPerson, transactions } = calculateSettlement(expenses, participants);
+  const { totalExpenses, transactions } = calculateSettlement(expenses, participants);
 
   // Create the summary text with translations and formatted currency
   const summaryText = `
-    ${t('settlementSummary.totalSpent')}: ${formatCurrency(expenses.reduce((sum, exp) => sum + exp.amount, 0), currency)}
+    ${t('settlementSummary.totalSpent')}: ${formatCurrency(totalExpenses, currency)}
     ${t('settlementSummary.participants')}: ${participants.length}
     ${t('settlementSummary.details')}:
     ${expenses.map(exp => `${exp.paidBy}: ${formatCurrency(exp.amount, currency)} ${t('settlementSummary.for')} ${exp.description}`).join('\n')}
@@ -94,12 +94,11 @@ function SettlementSummary({ expenses, setExpenses, participants, removeExpense 
         🧾 {t('settlementSummary.header')}
       </Card.Header>
       <Card.Body>
-        <h6>💰 {t('settlementSummary.totalSpent')}: {formatCurrency(totalExpenses, currency)}</h6>
         <div className='d-flex justify-content-between'>
-          <h6>💰 {t('settlementSummary.amountPerPerson')}: {formatCurrency(perPerson, currency)}</h6>
-          <p className='mx-2'> / {t('settlementSummary.numParticipants')}: {participants.length}</p>
+          <h6>💰 {t('settlementSummary.totalSpent')}: {formatCurrency(totalExpenses, currency)}</h6>
+          <p>{t('settlementSummary.numParticipants')}: {participants.length}</p>
         </div>
-
+        
         {/* Transactions List */}
         <h5 className="mt-4">💰 {t('settlementSummary.transactions')}</h5>
         {

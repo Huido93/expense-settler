@@ -1,39 +1,39 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Table, FormControl } from 'react-bootstrap';
+import { Table, FormControl, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faSave, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-function ExpenseList({ expenses, setExpenses, removeExpense, formatCurrency }) {
+function ExpenseList({ expenses, setExpenses, removeExpense, formatCurrency, participants }) {
   const { t } = useTranslation();  // Hook to get the translation function
 
   const [editingRow, setEditingRow] = useState(null);
   const [editedExpense, setEditedExpense] = useState({});
 
   const handleEditClick = (index) => {
-    const expense = expenses[index]
+    const expense = expenses[index];
     setEditingRow(index);
     setEditedExpense({
       ...expense,
-      amount: expense.amount
+      amount: expense.amount,
+      beneficiaries: expense.beneficiaries
     });
-    console.log(expenses[index])
+    console.log(expenses[index]);
   };
 
   const handleSaveClick = (index) => {
     const updatedExpenses = [...expenses];
-  
+
     // Ensure that the amount is saved as a number
     const expenseWithNumericAmount = {
       ...editedExpense,
       amount: parseFloat(editedExpense.amount)
     };
-  
+
     updatedExpenses[index] = expenseWithNumericAmount;
     setExpenses(updatedExpenses);
     setEditingRow(null);
-
   };
 
   const handleCancelClick = () => {
@@ -46,11 +46,20 @@ function ExpenseList({ expenses, setExpenses, removeExpense, formatCurrency }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    
     setEditedExpense({
       ...editedExpense,
       [name]: name === 'amount' ? parseFloat(value) : value  // Convert amount to a number
     });
+  };
+
+  const handleBeneficiaryChange = (e, beneficiary) => {
+    const selected = e.target.checked;
+    setEditedExpense((prev) => ({
+      ...prev,
+      beneficiaries: selected
+        ? [...prev.beneficiaries, beneficiary]
+        : prev.beneficiaries.filter(b => b !== beneficiary)
+    }));
   };
 
   return (
@@ -60,7 +69,8 @@ function ExpenseList({ expenses, setExpenses, removeExpense, formatCurrency }) {
           <tr>
             <th>{t('expenseList.payer')}</th>   
             <th>{t('expenseList.amount')}</th> 
-            <th>{t('expenseList.description')}</th> 
+            <th>{t('expenseList.description')}</th>
+            <th>{t('expenseList.beneficiaries')}</th> 
             <th>{t('expenseList.actions')}</th> {/* Actions Column */}
           </tr>
         </thead>
@@ -95,6 +105,17 @@ function ExpenseList({ expenses, setExpenses, removeExpense, formatCurrency }) {
                       />
                     </td>
                     <td>
+                      {participants.map((participant) => (
+                        <Form.Check
+                          key={participant}
+                          type="checkbox"
+                          label={participant}
+                          checked={editedExpense.beneficiaries.includes(participant)}
+                          onChange={(e) => handleBeneficiaryChange(e, participant)}
+                        />
+                      ))}
+                    </td>
+                    <td>
                       <FontAwesomeIcon
                         icon={faSave}
                         style={{ cursor: 'pointer', marginRight:'5px'}}
@@ -114,6 +135,7 @@ function ExpenseList({ expenses, setExpenses, removeExpense, formatCurrency }) {
                     <td>{expense.paidBy}</td>
                     <td>{formatCurrency(expense.amount, 'KRW')}</td>
                     <td>{expense.description}</td>
+                    <td>{expense.beneficiaries.join(', ')}</td> {/* Display beneficiaries */}
                     <td>
                       <FontAwesomeIcon
                         icon={faEdit}
