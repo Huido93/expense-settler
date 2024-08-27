@@ -8,7 +8,7 @@ import ExpenseForm from './components/ExpenseForm';
 import SettlementSummary from './components/SettlementSummary';
 
 function App() {
-  const { i18n } = useTranslation();  // No need to extract 't' here since it will be used in individual components
+  const { i18n } = useTranslation();  
   const [expenses, setExpenses] = useState([]);
   const [participants, setParticipants] = useState([]);
 
@@ -16,8 +16,23 @@ function App() {
     i18n.changeLanguage(lng);
   };
 
+  const updateParticipants = (updatedExpenses) => {
+    // Create a new set of participants based on the remaining expenses
+    const newParticipants = Array.from(new Set(updatedExpenses.map(expense => expense.paidBy)));
+    setParticipants(newParticipants);
+  };
+
   const addExpense = (expense) => {
-    setExpenses([...expenses, expense]);
+    const updatedExpenses = [...expenses, expense];
+    setExpenses(updatedExpenses);
+    updateParticipants(updatedExpenses);
+    console.log(expenses)
+  };
+
+  const removeExpense = (index) => {
+    const updatedExpenses = expenses.filter((_, i) => i !== index);
+    setExpenses(updatedExpenses);
+    updateParticipants(updatedExpenses);
   };
 
   return (
@@ -33,7 +48,12 @@ function App() {
             />
           </Col>
           <Col md={6}>
-            <SettlementSummary expenses={expenses} setExpenses={setExpenses} participants={participants} />
+          <SettlementSummary
+              expenses={expenses}
+              setExpenses={setExpenses}
+              removeExpense={removeExpense}
+              participants={participants}
+            />
           </Col>
         </Row>
       </Container>

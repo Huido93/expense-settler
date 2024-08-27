@@ -5,22 +5,35 @@ import { useTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faSave, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-function ExpenseList({ expenses, setExpenses }) {
+function ExpenseList({ expenses, setExpenses, removeExpense, formatCurrency }) {
   const { t } = useTranslation();  // Hook to get the translation function
 
   const [editingRow, setEditingRow] = useState(null);
   const [editedExpense, setEditedExpense] = useState({});
 
   const handleEditClick = (index) => {
+    const expense = expenses[index]
     setEditingRow(index);
-    setEditedExpense(expenses[index]);
+    setEditedExpense({
+      ...expense,
+      amount: expense.amount
+    });
+    console.log(expenses[index])
   };
 
   const handleSaveClick = (index) => {
     const updatedExpenses = [...expenses];
-    updatedExpenses[index] = editedExpense;
+  
+    // Ensure that the amount is saved as a number
+    const expenseWithNumericAmount = {
+      ...editedExpense,
+      amount: parseFloat(editedExpense.amount)
+    };
+  
+    updatedExpenses[index] = expenseWithNumericAmount;
     setExpenses(updatedExpenses);
     setEditingRow(null);
+
   };
 
   const handleCancelClick = () => {
@@ -28,14 +41,15 @@ function ExpenseList({ expenses, setExpenses }) {
   };
 
   const handleDeleteClick = (index) => {
-    const updatedExpenses = expenses.filter((_, i) => i !== index);
-    setExpenses(updatedExpenses);
+    removeExpense(index);
   };
 
   const handleChange = (e) => {
+    const { name, value } = e.target;
+    
     setEditedExpense({
       ...editedExpense,
-      [e.target.name]: e.target.value
+      [name]: name === 'amount' ? parseFloat(value) : value  // Convert amount to a number
     });
   };
 
@@ -68,7 +82,7 @@ function ExpenseList({ expenses, setExpenses }) {
                       <FormControl
                         type="number"
                         name="amount"
-                        value={editedExpense.amount || ''}
+                        value={editedExpense.amount}
                         onChange={handleChange}
                       />
                     </td>
@@ -98,7 +112,7 @@ function ExpenseList({ expenses, setExpenses }) {
                 ) : (
                   <>
                     <td>{expense.paidBy}</td>
-                    <td>{expense.amount}</td>
+                    <td>{formatCurrency(expense.amount, 'KRW')}</td>
                     <td>{expense.description}</td>
                     <td>
                       <FontAwesomeIcon

@@ -7,7 +7,7 @@ import ExpenseList from './ExpenseList';
 import TransactionsList from './TransactionsList';  // Import the new TransactionsList component
 
 function calculateSettlement(expenses, participants) {
-  const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+  const totalExpenses = expenses.reduce((sum, expense) => sum + parseFloat(expense.amount), 0);
   const perPerson = totalExpenses / participants.length;
 
   const balances = participants.reduce((acc, participant) => {
@@ -67,7 +67,7 @@ function formatCurrency(amount, currency) {
   return amount.toLocaleString(undefined, options);  // Amount is expected to be a number
 }
 
-function SettlementSummary({ expenses, setExpenses, participants }) {
+function SettlementSummary({ expenses, setExpenses, participants, removeExpense }) {
   const { t, i18n } = useTranslation();
 
   // Automatically set currency based on the language
@@ -102,11 +102,10 @@ function SettlementSummary({ expenses, setExpenses, participants }) {
         {/* Include the Expense List */}
         <h5 className="mt-4">💰 {t('settlementSummary.detailedExpenses')}</h5>
         <ExpenseList 
-          expenses={expenses.map(expense => ({
-            ...expense,
-            amount: formatCurrency(expense.amount, currency),  // Format amount here for display
-          }))}
-          setExpenses={setExpenses} />      
+          expenses={expenses}
+          setExpenses={setExpenses}
+          removeExpense={removeExpense}
+          formatCurrency={formatCurrency} />      
       </Card.Body>
     </Card>
   );
