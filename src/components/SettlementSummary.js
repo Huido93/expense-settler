@@ -80,11 +80,11 @@ function SettlementSummary({ expenses, setExpenses, participants, removeExpense 
 
   // Create the summary text with translations and formatted currency
   const summaryText = `
-    ${t('settlementSummary.totalSpent')}: ${formatCurrency(totalExpenses, currency)}
-    ${t('settlementSummary.participants')}: ${participants.length}
-    ${t('settlementSummary.details')}:
-    ${expenses.map(exp => `${exp.paidBy}: ${formatCurrency(exp.amount, currency)} ${t('settlementSummary.for')} ${exp.description}`).join('\n')}
-    ${t('settlementSummary.transactions')}:
+  💰${t('settlementSummary.totalSpent')}: ${formatCurrency(totalExpenses, currency)}
+  💰${t('settlementSummary.participants')}: ${participants.length}
+  💰${t('settlementSummary.details')}:
+    ${expenses.map(exp => `💸 ${exp.paidBy}: ${formatCurrency(exp.amount, currency)} ${t('settlementSummary.for')} ${exp.description}`).join('\n')}
+  💰${t('settlementSummary.transactions')}:
     ${transactions.map(tx => `${tx.from} ${t('settlementSummary.owes')} ${tx.to} ${formatCurrency(tx.amount, currency)}`).join('\n')}
   `;
 
