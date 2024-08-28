@@ -22,51 +22,48 @@ function ParticipantInput({ participants, setParticipants, startPhase2 }) {
   };
 
   return (
-    <Card className="mb-3 shadow-sm">
-      <Card.Header>
-        👥 {t('participantInput.addParticipants')}
-      </Card.Header>
-      <Card.Body>
-        <Form.Group controlId="formNewParticipant">
-          <Form.Control
-            type="text"
-            placeholder={t('participantInput.enterParticipantName')}
-            value={newParticipant}
-            onChange={(e) => setNewParticipant(e.target.value)}
-          />
-        </Form.Group>
-        
-        {participants.length > 0 && (
-          <ListGroup className="mt-3 mb-3">
-            <h6>{t('participantInput.list')}</h6>
-            {participants.map((participant, index) => (
-              <ListGroup.Item key={index} className="d-flex justify-content-between align-items-center">
-                {participant}
-                <FontAwesomeIcon
-                  icon={faTrash}
-                  style={{ cursor: 'pointer' }}
-                  className='text-danger'
-                  onClick={() => removeParticipant(index)}
-                />
-              </ListGroup.Item>
-            ))}
-          </ListGroup>
-        )}
-        <Row>
-          <Col md={6}>
-            <Button className="mt-3 w-100" onClick={addParticipant} variant='secondary'>
-              {t('participantInput.addParticipantButton')}
-            </Button>
-          </Col>
-          <Col md={6}>
-            <Button variant='dark' className="mt-3 w-100" onClick={startPhase2}  >
-              {t('participantInput.proceedToExpensesButton')}
-            </Button>
-          </Col>
-        </Row>
-        
-      </Card.Body>
-    </Card>
+    <div className="d-flex justify-content-center align-items-center min-vh-100">
+      <Card className="shadow-sm" style={{ maxWidth: '400px', width: '100%' }}>
+        <Card.Header className="text-center">
+          👥 {t('participantInput.addParticipants')}
+        </Card.Header>
+        <Card.Body>
+          <Form.Group controlId="formNewParticipant">
+            <Form.Control
+              type="text"
+              placeholder={t('participantInput.enterParticipantName')}
+              value={newParticipant}
+              onChange={(e) => setNewParticipant(e.target.value)}
+            />
+          </Form.Group>
+          
+          {participants.length > 0 && (
+            <ListGroup className="mt-3 mb-3">
+              <h6>{t('participantInput.list')}</h6>
+              {participants.map((participant, index) => (
+                <ListGroup.Item key={index} className="d-flex justify-content-between align-items-center">
+                  {participant}
+                  <FontAwesomeIcon
+                    icon={faTrash}
+                    style={{ cursor: 'pointer' }}
+                    className='text-danger'
+                    onClick={() => removeParticipant(index)}
+                  />
+                </ListGroup.Item>
+              ))}
+            </ListGroup>
+          )}
+
+              <Button className="mt-3 w-100" onClick={addParticipant} variant="secondary">
+                {t('participantInput.addParticipantButton')}
+              </Button>
+              <Button variant="dark" className="mt-3 w-100" onClick={startPhase2}>
+                {t('participantInput.proceedToExpensesButton')}
+              </Button>
+
+        </Card.Body>
+      </Card>
+    </div>
   );
 }
 
