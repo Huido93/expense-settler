@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/expense-settler/static/css/main.1f770652.css",
-    "main.js": "/expense-settler/static/js/main.22f5c55a.js",
+    "main.js": "/expense-settler/static/js/main.83faf91a.js",
     "static/js/453.7de49596.chunk.js": "/expense-settler/static/js/453.7de49596.chunk.js",
     "index.html": "/expense-settler/index.html",
     "main.1f770652.css.map": "/expense-settler/static/css/main.1f770652.css.map",
-    "main.22f5c55a.js.map": "/expense-settler/static/js/main.22f5c55a.js.map",
+    "main.83faf91a.js.map": "/expense-settler/static/js/main.83faf91a.js.map",
     "453.7de49596.chunk.js.map": "/expense-settler/static/js/453.7de49596.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1f770652.css",
-    "static/js/main.22f5c55a.js"
+    "static/js/main.83faf91a.js"
   ]
 }
